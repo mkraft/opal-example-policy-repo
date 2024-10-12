@@ -1,9 +1,12 @@
-permit(
-    principal in Role::"Editor",
-    action in [
-        Action::"document:read",
-        Action::"document:write",
-        Action::"document:delete"
-	],
-    resource in ResourceType::"document"
+permit (
+    principal == PhotoApp::User::"alice",
+    action == PhotoApp::Action::"viewPhoto",
+    resource == PhotoApp::Photo::"vacationPhoto.jpg"
 );
+
+permit (
+    principal == PhotoApp::User::"stacey",
+    action == PhotoApp::Action::"viewPhoto",
+    resource
+)
+when { resource in PhotoApp::Account::"stacey" };
